@@ -28,6 +28,22 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
+const user = new User({
+    username: 'kim',
+    password: '12345'
+});
+
+/** user.save((error) => {
+    if (error) throw error;
+    console.log('New user has been saved to the database successfully');
+}); **/
+
+user.save().then(() => {
+    console.log('New user has been saved to the database successfully');
+}).catch((error) => {
+    console.error(error);
+});
+
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
