@@ -20,6 +20,14 @@ async function connect() {
 
 connect();
 
+// Create Schema about User
+const userSchema = new mongoose.Schema({
+    username: String,
+    password: String
+});
+
+const User = mongoose.model('User', userSchema);
+
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
