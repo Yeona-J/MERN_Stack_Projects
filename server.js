@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const cors = require('cors')
+
+app.use(cors());
+app.use(express.json());
 
 // Define the connection URI
 const uri = "mongodb+srv://1234567890:1234567890@cluster0.3i3gxco.mongodb.net/?retryWrites=true&w=majority";
@@ -9,7 +13,7 @@ const uri = "mongodb+srv://1234567890:1234567890@cluster0.3i3gxco.mongodb.net/?r
 async function connect() {
     try {
         await mongoose.connect(uri, {
-            useNewURLParser: true,
+            useNewUrlParser: true,
             useUnifiedTopology: true
         });
         console.log('connected to mongoDB');
@@ -33,11 +37,6 @@ const user = new User({
     password: '12345'
 });
 
-/** user.save((error) => {
-    if (error) throw error;
-    console.log('New user has been saved to the database successfully');
-}); **/
-
 user.save().then(() => {
     console.log('New user has been saved to the database successfully');
 }).catch((error) => {
@@ -46,6 +45,21 @@ user.save().then(() => {
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
+});
+
+app.post('/', (req, res) => {
+    const { username, password } = req.body;
+    const user = new User({
+        username,
+        password
+    });
+    user.save((error) => {
+        if (error) {
+            res.status(500).send(error);
+        } else {
+            res.send('User saved to the database');
+        }
+    });
 });
 
 app.listen(3000, () => {

@@ -9,14 +9,14 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('http://localhost:3000', {username, password}) //api,object
+    axios.post('http://localhost:3000', {username, password})
     .then((response) => {
       console.log(response);
     })
     .catch((error) => {
       console.log(error);
-    })
-  }
+    });
+  };
 
   const handleUsernameChange = (event) => { // ES6
     setUsername(event.target.value)
@@ -29,7 +29,7 @@ function App() {
   return (
     <div className="App">
     <h1>Welcome to the Game!</h1>
-    <form>
+    <form onSubmit={handleSubmit}>
       <label>
         Username:
         <input type="text" value={username} onChange={handleUsernameChange} />
