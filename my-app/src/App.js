@@ -1,10 +1,22 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 import './App.css';
 
 function App() {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios.post('http://localhost:3000', {username, password}) //api,object
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
 
   const handleUsernameChange = (event) => { // ES6
     setUsername(event.target.value)
