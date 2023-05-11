@@ -9,4 +9,4 @@ function WelcomPage(props) {
     )
 }
 
-export default WelcomePage;
+export default WelcomePage; //Use like a module
